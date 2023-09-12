@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Rotas
-import Default from '@/layouts/default/Default.vue'
+import Default from '@/components/layouts/Default.vue'
 
 const routes = [
   {
@@ -19,7 +19,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 })
 
 export default router

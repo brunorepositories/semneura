@@ -1,19 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
-    "baseUrl": "./",
-    "moduleResolution": "node",
+    "target": "ES6", // Especifica a versão do ECMAScript a ser usada (ES6 é comum)
+    "module": "ES6", // Tipo de módulo (pode ser "commonjs" ou "ES6" para projetos JavaScript)
+    "allowSyntheticDefaultImports": true, // Permite a importação de módulos sem um valor de exportação padrão
+    "baseUrl": "./", // Diretório base para os caminhos dos módulos (geralmente o diretório raiz do projeto)
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
-  }
+      "@/*": ["src/*"] // Mapeia alias de importação para caminhos reais
+    }
+  },
+  "exclude": ["node_modules", "dist"] // Lista de pastas/arquivos a serem excluídos da análise
 }

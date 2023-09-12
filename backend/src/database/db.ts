@@ -3,12 +3,12 @@ require('dotenv').config()
 
 const initOptions = {
 	promiseLib: Promise,
-  schema: [process.env.DB_SCHEMA],
-	connect (client, dc, isFresh) {
+  	schema: [process.env.DB_SCHEMA],
+	connect (client) {
 		const cp = client.connectionParameters
-		console.log('Conectado na base de dados:', cp.database)
+		console.log('Conectado na base de dados:', cp)
 	},
-	error (err, e) {
+	error (err) {
 		if (err) {
 			console.log(err)
 		}
@@ -18,7 +18,7 @@ const initOptions = {
 	}
 }
 
-const connectionConfig = {
+const dbConfig = {
 	host: process.env.DB_HOST,
 	port: process.env.DB_PORT,
 	user: process.env.DB_USER,
@@ -29,6 +29,6 @@ const connectionConfig = {
 }
 
 const pgp = require('pg-promise')(initOptions)
-const db = pgp(connectionConfig)
+const db = pgp(dbConfig)
 
 export default db

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "axios": "^1.5.0",
     "core-js": "^3.32.1",
     "roboto-fontface": "^0.10.0",
     "vee-validate": "^4.11.3",

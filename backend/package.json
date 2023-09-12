@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemom src/server.ts",
-    "build": "tsc ",
-    "lint": "eslint --ext .ts src",
-    "lint:fix": "eslint --ext .ts src --fix"
+    "dev": "nodemon src/server.ts",
+    "build": "sucrase ./src -d ./dist --transforms typescript"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +30,9 @@
     "http-status": "^1.7.0",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
+    "pg-promise": "^11.5.4",
     "sequelize": "^6.32.1",
-    "sequelize-cli": "^6.6.1"
+    "sequelize-cli": "^6.6.1",
+    "sucrase": "^3.34.0"
   }
 }
