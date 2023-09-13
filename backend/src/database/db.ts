@@ -1,12 +1,10 @@
-import Promise from 'bluebird'
 require('dotenv').config()
 
 const initOptions = {
 	promiseLib: Promise,
-  	schema: [process.env.DB_SCHEMA],
 	connect (client) {
-		const cp = client.connectionParameters
-		console.log('Conectado na base de dados:', cp)
+		// const cp = client.connectionParameters
+		console.log('Conectado na base de dados:', client)
 	},
 	error (err) {
 		if (err) {

@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { RestConnection } from '../configs/restConnection.js'
+import RestConnection from '@/configs/restConnection'
 
 export default {
     name: 'ListarPaises',
@@ -150,21 +150,21 @@ export default {
         };
 
         try {
-          let response = await RestConnection.post('/pais', objPais)
-          console.log(response.data)
+          const dados = await RestConnection.post('/pais', objPais)
+          console.log(dados.data)
           alert('Cliente criado com sucesso!')
           // location.reload()
         } catch (e) {
           console.log(e)
-          if (e.response.status === 400) {
-            alert(e.response.data.text_message)
+          if (e.dados.status === 400) {
+            alert(e.dados.data.text_message)
           } else {
             alert('Houve um erro! Por favor tente novamente.')
           }
         }
 
         // Faça algo com os dados, como enviar para o servidor
-        console.log("Dados a serem enviados:", dados);
+        console.log("Dados a serem enviados:", objPais);
 
         // Feche o modal
         this.fecharModal();
@@ -172,4 +172,4 @@ export default {
     }
 
   }
-</script>
+</script>@/configs/restConnection

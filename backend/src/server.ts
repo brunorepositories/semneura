@@ -23,7 +23,7 @@ try {
         console.log(`Servidor rodando na porta ${PORT}`);
     });
 } catch (error) {
-    console.log(`Error occurred: ${error.message}`)
+    console.log(`Error occurred: ${error}`)
 }
 
 export default app
