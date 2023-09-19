@@ -1,23 +1,39 @@
-import Model from './Model'; // 
-import Pais from '../interfaces/paisInterface' 
-import Estado from '../interfaces/estadoInterface' 
-import Cidade from '../interfaces/cidadeInterface'
+import abstractModel from "./Model";
+class PaisModel extends abstractModel<any> {
+  private pais: string;
+  private sigla: string;
+  private ddi: string;
 
-
-class PaisModel extends Model<Pais> {
   constructor() {
-    super('pais'); // Nome da tabela no banco de dados para País
+    super();
+    this.pais = "";
+    this.sigla = "";
+    this.ddi = "";
+  }
+
+  get getpais(): string {
+    return this.pais;
+  }
+
+  set setpais(nome: string) {
+    this.pais = nome;
+  }
+
+  get getSigla(): string {
+    return this.sigla;
+  }
+
+  set setSigla(sigla: string) {
+    this.sigla = sigla;
+  }
+
+  get getDdi(): string {
+    return this.ddi;
+  }
+
+  set setDdi(ddi: string) {
+    this.ddi = ddi;
   }
 }
 
-class EstadoModel extends Model<Estado> {
-  constructor() {
-    super('estado'); // Nome da tabela no banco de dados para Estado
-  }
-}
-
-class CidadeModel extends Model<Cidade> {
-  constructor() {
-    super('cidade'); // Nome da tabela no banco de dados para Cidade
-  }
-}
+export default PaisModel;

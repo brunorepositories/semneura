@@ -1,68 +1,38 @@
-import db from '../database/db' // Importe o seu objeto de conexão com o banco de dados
+abstract class abstractModel<T> {
 
-abstract class Model<T> {
-  tableName: string
+  private id: number
+  private dt_create: string
+  private dt_update: string
 
-  constructor(tableName: string) {
-    this.tableName = tableName
+  constructor() {
+    this.id = 0
+    this.dt_create = ""
+    this.dt_update = ""
   }
 
-  async findAll(): Promise<T[]> {
-    try {
-      const query = `SELECT * FROM ${this.tableName}`
-      const result = await db.manyOrNone(query)
-      return result
-    } catch (error) {
-      throw error
-    }
+   get getId(): number {
+    return this.id;
   }
 
-  async findById(id: number): Promise<T | null> {
-    try {
-      const query = `SELECT * FROM ${this.tableName} WHERE id = $1`
-      const result = await db.oneOrNone(query, [id])
-      return result
-    } catch (error) {
-      throw error
-    }
+  set setId(id: number) {
+    this.id = id;
   }
 
-  async create(data: Partial<T>): Promise<T> {
-    try {
-      const columns = Object.keys(data).join(', ')
-      const values = Object.values(data)
-      const placeholders = values.map((_, index) => `$${index + 1}`).join(', ')
-
-      const query = `INSERT INTO ${this.tableName} (${columns}) VALUES (${placeholders}) RETURNING *`
-      const result = await db.one(query, values)
-      return result
-    } catch (error) {
-      throw error
-    }
+  get getDt_create(): string {
+    return this.dt_create;
   }
 
-  async update(id: number, data: Partial<T>): Promise<T | null> {
-    try {
-      const columns = Object.keys(data).map((col, index) => `${col} = $${index + 2}`).join(', ')
-      const values = Object.values(data)
-      values.push(id)
-
-      const query = `UPDATE ${this.tableName} SET ${columns} WHERE id = $1 RETURNING *`
-      const result = await db.oneOrNone(query, values)
-      return result
-    } catch (error) {
-      throw error
-    }
+  set setDt_create(dt_create: string) {
+    this.dt_create = dt_create;
   }
 
-  async delete(id: number): Promise<void> {
-    try {
-      const query = `DELETE FROM ${this.tableName} WHERE id = $1`
-      await db.none(query, [id])
-    } catch (error) {
-      throw error
-    }
+  get getDt_update(): string {
+    return this.dt_update;
+  }
+
+  set setDt_update(dt_update: string) {
+    this.dt_update = dt_update;
   }
 }
 
-export default Model
+export default abstractModel

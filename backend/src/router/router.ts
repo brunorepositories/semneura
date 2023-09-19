@@ -6,7 +6,7 @@ const routes = express.Router()
 // Usuário
 routes.post('/pais', paisController.criarConta)
 // Usuário
-routes.get('/pais', paisController.buscarPaises)
+routes.get('/paises', paisController.buscarPaises)
 
 
 

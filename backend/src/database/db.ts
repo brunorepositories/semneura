@@ -2,16 +2,16 @@ require('dotenv').config()
 
 const initOptions = {
 	promiseLib: Promise,
-	connect (client) {
+	connect (client: any) {
 		// const cp = client.connectionParameters
 		console.log('Conectado na base de dados:', client)
 	},
-	error (err) {
+	error (err: any) {
 		if (err) {
 			console.log(err)
 		}
 	},
-	query (e) {
+	query (e: any) {
 		console.log('QUERY:', e.query)
 	}
 }

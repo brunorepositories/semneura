@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express"
 import Status from 'http-status'
-import Pais from '../services/paisService'
+import PaisService from '../services/paisService'
 
 class paisController {
+
 
     public async criarConta(req: Request, res: Response, next: NextFunction) {
         
@@ -15,19 +16,22 @@ class paisController {
         console.log("paisControler > ciarConta -----------------")
         console.log(dados)
         console.log("paisControler > ciarConta -----------------")
-        // const usuario = req.headers.usuario
+        
         try {
-            const valor = await Pais.cadastrarConta(dados.pais, dados.sigla, dados.ddi)
-            // const novaConta = await cadastrarConta(conta, usuario)
-            res.status(200).json(valor)
+            
+            const result = PaisService.cadastrarConta(dados)
+            return result
+
         } catch (error) {
-            next(error);
-       }
+            next(error)
+        }
+
      }
 
      public async buscarPaises(req: Request, res: Response, next: NextFunction) {
         try {
-            const listaPaises = await Pais.listarPaises()
+            const listaPaises = await PaisService.listarPaises()
+
             res.status(200).json(listaPaises)
         } catch (error) {
             next(error);

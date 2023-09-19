@@ -9,21 +9,20 @@
   <v-table>
     <thead>
       <tr>
-        <th class="text-left">
-          Name
-        </th>
-        <th class="text-left">
-          Calories
-        </th>
+        <th class="text-left"> Código </th>
+        <th class="text-left"> Pais </th>
+        <th class="text-left"> Sigla </th>
+        <th class="text-left"> DDI </th>
+        <th class="text-left"> Ações </th>
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="item in desserts"
-        :key="item.name"
-      >
-        <td>{{ item.name }}</td>
-        <td>{{ item.calories }}</td>
+      <tr v-for="pais in paises" :key="pais.id">
+        <td>{{ pais.id }}</td>
+        <td>{{ pais.pais }}</td>
+        <td>{{ pais.sigla }}</td>
+        <td>{{ pais.ddi }}</td>
+        <td><v-icon>mdi-pencil</v-icon></td>
       </tr>
     </tbody>
   </v-table>
@@ -75,6 +74,7 @@
 
 <script>
 import RestConnection from '@/configs/restConnection'
+import { cleanJsonData } from '../utilities/functions'
 
 export default {
     name: 'ListarPaises',
@@ -89,51 +89,22 @@ export default {
           dt_atualizacao: ''
         },
         modal: false,
-        desserts: [
-          {
-            name: 'Paises',
-            calories: 159,
-          },
-          {
-            name: 'Paises',
-            calories: 237,
-          },
-          {
-            name: 'Paises',
-            calories: 262,
-          },
-          {
-            name: 'Paises',
-            calories: 305,
-          },
-          {
-            name: 'Paises',
-            calories: 356,
-          },
-          {
-            name: 'Paises bean',
-            calories: 375,
-          },
-          {
-            name: 'Paises',
-            calories: 392,
-          },
-          {
-            name: 'Paises',
-            calories: 408,
-          },
-          {
-            name: 'Paises',
-            calories: 452,
-          },
-          {
-            name: 'Paises',
-            calories: 518,
-          },
-        ],
+        paises: [],
       }
     },
+    created() {
+      this.buscarPaises()
+    },
     methods: {
+      async buscarPaises() {
+        try {
+          const dados = await RestConnection.get('/paises')
+
+          return this.paises = cleanJsonData(dados)          
+        } catch (e) {
+          console.log(e)
+        }
+      },
       fecharModal() {
         this.modal = false;
         // Limpar os campos do formulário quando o modal for fechado
@@ -172,4 +143,4 @@ export default {
     }
 
   }
-</script>@/configs/restConnection
+</script>@/utilities/functions@/utilities/functions

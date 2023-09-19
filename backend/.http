@@ -3,13 +3,14 @@ POST http://localhost:3333/pais HTTP/1.1
 content-type: application/json
 
 {
-    "pais": "Brazil",
-    "sigla": "Br",
-    "ddi": "10"
+    "pais": "Paraguai",
+    "sigla": "PY",
+    "ddi": "11",
+    "ativo": true
 }
 
 ###
 
-GET http://localhost:3333/pais HTTP/1.1
+GET http://localhost:3333/paises HTTP/1.1
 
 ###

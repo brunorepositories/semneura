@@ -1,4 +1,4 @@
-import { RestConnection } from '../../rest/rest-connection'
+import RestConnection from '@/configs/restConnection'
 
 // Funções Globais para as mascaras
 export function updateMoneyData (val) {
@@ -7,6 +7,12 @@ export function updateMoneyData (val) {
 	val = val.replace(',', '.')
 
 	return val
+}
+
+export function cleanJsonData (data) {
+	const cleanData = data.data[0].dados
+
+	return cleanData
 }
 
 export function updateCPFData (cpf) {
