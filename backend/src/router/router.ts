@@ -4,7 +4,7 @@ import paisController from '../controllers/paisController'
 const routes = express.Router()
 
 // Usuário
-routes.post('/pais', paisController.criarConta)
+routes.post('/cadastrar-pais', paisController.cadastrarPais)
 // Usuário
 routes.get('/paises', paisController.buscarPaises)
 

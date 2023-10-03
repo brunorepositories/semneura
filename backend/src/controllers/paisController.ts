@@ -1,44 +1,34 @@
-import { Request, Response, NextFunction } from "express"
-import Status from 'http-status'
-import PaisService from '../services/paisService'
+import { Request, Response, NextFunction } from "express";
+import STATUS from "http-status";
+import PaisService from "../services/paisService";
 
 class paisController {
 
+    public async cadastrarPais(req: Request, res: Response, next: NextFunction) {
 
-    public async criarConta(req: Request, res: Response, next: NextFunction) {
-        
-        console.log("paisControler > ciarConta -----------------")
-        console.log(req.body)
-        console.log("paisControler > ciarConta -----------------")
+        const { ...pais } = req.body;  
 
-        const dados = req.body
+        if (pais && pais.pais && pais.sigla && pais.ddi) {
+            try {
+                const result = PaisService.criarPais(pais)
+                return res.status(STATUS.OK).json(result)
 
-        console.log("paisControler > ciarConta -----------------")
-        console.log(dados)
-        console.log("paisControler > ciarConta -----------------")
-        
-        try {
-            
-            const result = PaisService.cadastrarConta(dados)
-            return result
-
-        } catch (error) {
-            next(error)
+            } catch (error) {
+                next(error);
+            }
+        } else {
+            return res.status(STATUS.BAD_REQUEST).send("Campo obrigatório não preenchido!")
         }
+    }
 
-     }
-
-     public async buscarPaises(req: Request, res: Response, next: NextFunction) {
+    public async buscarPaises(req: Request, res: Response, next: NextFunction) {
         try {
-            const listaPaises = await PaisService.listarPaises()
-
-            res.status(200).json(listaPaises)
+            const listaPaises = await PaisService.listarPaises();
+            return res.status(200).json(listaPaises);
         } catch (error) {
             next(error);
-       }
-     }
-
-
+        }
+    }
 }
 
 export default new paisController();

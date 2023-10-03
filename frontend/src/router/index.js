@@ -10,7 +10,7 @@ const routes = [
     component: Default,
     children: [
       { path: '/home', name: 'Home', component: () => import('@/views/Home.vue') },
-      { path: '/paises', name: 'ListarPais', component: () => import('@/components/ListarPais.vue') },
+      { path: '/paises', name: 'ListarPais', component: () => import('@/components/pais/ListarPais.vue') },
       { path: '/estados', name: 'ListarEstados', component: () => import('@/components/ListarEstados.vue') },
       { path: '/cidades', name: 'ListarCidades', component: () => import('@/components/ListarCidades.vue') },
     ],

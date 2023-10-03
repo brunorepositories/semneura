@@ -1,12 +1,14 @@
 
-POST http://localhost:3333/pais HTTP/1.1
+POST http://localhost:3333/cadastrar-pais HTTP/1.1
 content-type: application/json
 
 {
-    "pais": "Paraguai",
-    "sigla": "PY",
-    "ddi": "11",
-    "ativo": true
+    "pais": {
+        "pais": "Paraguai",
+        "sigla": "PA",
+        "ddi": "12",
+        "ativo": true
+    }
 }
 
 ###

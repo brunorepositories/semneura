@@ -23,7 +23,7 @@ abstract class abstractService<T> {
  
   async findById(id: number): Promise<any | null> {
     try {
-      const query = `SELECT * FROM ${this.tableName} WHERE id = $1`
+      const query = `SELECT json_agg(row_to_json(data)) as dados FROM ( SELECT * FROM ${this.tableName} WHERE id = $1 ) data;`
       const result = await db.oneOrNone(query, [id])
       return result
     } catch (error) {
@@ -38,7 +38,7 @@ abstract class abstractService<T> {
       const values = Object.values(data)
       const placeholders = values.map((_, index) => `$${index + 1}`).join(', ')
 
-      const query = `INSERT INTO ${this.tableName} (${columns}) VALUES (${placeholders}) RETURNING *`
+      const query = `INSERT INTO ${this.tableName} (${columns}) VALUES (${placeholders}) RETURNING *;`
       const result = await db.one(query, values)
       return result
     } catch (error) {
@@ -52,7 +52,7 @@ abstract class abstractService<T> {
       const values = Object.values(data)
       values.push(id)
 
-      const query = `UPDATE ${this.tableName} SET ${columns} WHERE id = $1 RETURNING *`
+      const query = `UPDATE ${this.tableName} SET ${columns} WHERE id = $1 RETURNING *;`
       const result = await db.oneOrNone(query, values)
       return result
     } catch (error) {
@@ -62,7 +62,7 @@ abstract class abstractService<T> {
 
   async delete(id: number): Promise<void> {
     try {
-      const query = `DELETE FROM ${this.tableName} WHERE id = $1`
+      const query = `DELETE FROM ${this.tableName} WHERE id = $1 RETURNING *;`
       await db.none(query, [id])
     } catch (error) {
       throw error
