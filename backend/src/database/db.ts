@@ -4,15 +4,16 @@ const initOptions = {
 	promiseLib: Promise,
 	connect (client: any) {
 		// const cp = client.connectionParameters
-		console.log('Conectado na base de dados:', client)
+		// console.log('Conectado na base de dados:', client)
+		console.log("Conectado na base de dados")
 	},
 	error (err: any) {
 		if (err) {
-			console.log(err)
+			console.log("ERRO: ", err)
 		}
 	},
 	query (e: any) {
-		console.log('QUERY:', e.query)
+		console.log('QUERY: ', e.query)
 	}
 }
 

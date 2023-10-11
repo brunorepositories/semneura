@@ -2,17 +2,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Rotas
-import Default from '@/components/layouts/Default.vue'
+import viewDefault from '@/components/layouts/View.vue'
 
 const routes = [
   {
     path: '/',
-    component: Default,
+    component: viewDefault,
     children: [
-      { path: '/home', name: 'Home', component: () => import('@/views/Home.vue') },
-      { path: '/paises', name: 'ListarPais', component: () => import('@/components/pais/ListarPais.vue') },
-      { path: '/estados', name: 'ListarEstados', component: () => import('@/components/ListarEstados.vue') },
-      { path: '/cidades', name: 'ListarCidades', component: () => import('@/components/ListarCidades.vue') },
+      { path: '/home', name: 'Home', 
+        component: () => import('@/components/Home.vue') 
+      },
+      { path: '/paises', name: 'ListarPais', 
+        component: () => import('@/components/pais/ListarPais.vue') 
+      },
+      { path: '/estados', name: 'ListarEstados', 
+        component: () => import('@/components/estado/ListarEstados.vue') 
+      },
+      { path: '/cidades', name: 'ListarCidades',
+        component: () => import('@/components/cidade/ListarCidades.vue') 
+      },
     ],
   },
 ]

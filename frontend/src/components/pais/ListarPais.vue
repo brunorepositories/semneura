@@ -2,8 +2,7 @@
     <div>
         <div class="py-5 d-flex justify-space-between">
             <h1> Paises </h1>
-
-            <CadastrarPais @fecharModal="modalFechou()" @paisCadastrado="paisCadastrado()" />
+            <CadastrarPais @fechar-modal="modalFechou()" @pais-cadastrado="paisCadastradoMsg()" />
         </div>
 
         <v-table>
@@ -16,15 +15,14 @@
                     <th class="text-left"> Ações </th>
                 </tr>
             </thead>
-            <tbody v-if="paises.length">
-                <tr v-for="pais in paises" :key="pais.id">
+            <tbody v-if="paisesPaginados.length">
+                <tr v-for="pais in paisesPaginados" :key="pais.id">
                     <td>{{ pais.id }}</td>
                     <td>{{ pais.pais }}</td>
                     <td>{{ pais.sigla }}</td>
                     <td>{{ pais.ddi }}</td>
-                    <td> 
-                        <v-btn class="mr-4 icon-blue" icon="mdi-pencil" size="small"></v-btn>
-                        <v-btn icon="mdi-delete" size="small"></v-btn>
+                    <td>
+                        <EditarPais :id-pais="pais.id" @fechar-modal="modalFechou()" @pais-cadastrado="paisCadastradoMsg()"/>
                     </td>
                 </tr>
             </tbody>
@@ -35,58 +33,69 @@
             </tbody>
         </v-table>
 
-        <v-snackbar v-model="msgPaisCadastrado" :timeout="2000"> 
-            Pais cadastrado com sucesso.
+        <v-pagination v-model="currentPage" :length="totalPages" :total-visible="6" class="mt-4"></v-pagination>
 
+        <v-snackbar v-model="msgPaisCadastrado" :timeout="2000">
+            Pais cadastrado com sucesso.
             <template v-slot:actions>
                 <v-btn color="blue" variant="text" @click="msgPaisCadastrado = false"> Fechar </v-btn>
             </template>
         </v-snackbar>
     </div>
-
 </template>
-
+  
 <script>
-import RestConnection from '@/configs/restConnection'
-import { cleanJsonData } from '../../utilities/functions'
-
-import CadastrarPais from './CadastrarPais'
+import ServicePais from '@/services/servicePais';
+import CadastrarPais from './CadastrarPais';
+import EditarPais from './EditarPais';
 
 export default {
     name: 'ListarPais',
     components: {
-        CadastrarPais
+        CadastrarPais,
+        EditarPais,
     },
     data: () => ({
         paises: [],
         msgPaisCadastrado: false,
+        currentPage: 1,
+        itemsPerPage: 20,
     }),
+    computed: {
+        startIndex() {
+            return (this.currentPage - 1) * this.itemsPerPage;
+        },
+        paisesPaginados() {
+            return this.paises.slice(this.startIndex, this.startIndex + this.itemsPerPage);
+        },
+        totalPages() {
+            return Math.ceil(this.paises.length / this.itemsPerPage);
+        },
+    },
     created() {
-        this.buscarPaises()
+        this.buscaPaises();
     },
     methods: {
-        async buscarPaises() {
+        async buscaPaises() {
             try {
-                const dados = await RestConnection.get('/paises')
+                const listaPaises = await ServicePais.buscarPaises();
 
-                return this.paises = cleanJsonData(dados)
+                this.paises = listaPaises;
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         },
-        paisCadastrado() {
+        paisCadastradoMsg() {
             this.msgPaisCadastrado = true
-
-            this.buscarPaises()
         },
         modalFechou() {
-            this.buscarPaises()
+            this.buscaPaises();
         }
-    }
-
-}
+    },
+};
 </script>
-
+  
 <style scoped>
-
+/* Estilos personalizados, se necessário */
 </style>
+  

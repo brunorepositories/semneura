@@ -36,10 +36,10 @@
                     </v-card-text>
                     <v-card-actions class="pa-6">
                         <v-spacer></v-spacer>
-                        <v-btn type="submit" @click.prevent="salvarPais" color="success" variant="flat">
+                        <v-btn type="submit" @click.prevent="salvarPais()" color="success" variant="flat">
                             Salvar
                         </v-btn>
-                        <v-btn @click="fecharModal" class="ml-6" variant="tonal">
+                        <v-btn @click="fecharModal()" class="ml-6" variant="tonal">
                             Cancelar
                         </v-btn>
                     </v-card-actions>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import RestConnection from '@/configs/restConnection'
+import ServicePais from '@/services/servicePais'
 
 export default {
     name: "CadastrarPais",
@@ -86,37 +86,24 @@ export default {
                 dt_atualizacao: "",
             }
             
-            return this.$emit('fecharModal')
+            this.$emit('fecharModal')
         },
-        async salvarPais() {
-
-            console.log('teste sssssssssss')
-
+        async salvarPais() {            
             try {
-                await RestConnection.post('/cadastrar-pais', this.pais)
+                await ServicePais.cadastrarPais(this.pais)
                 
-                this.showModal = false
                 
-                this.pais = {
-                    id: null,
-                    pais: "",
-                    sigla: "",
-                    ddi: "",
-                    ativo: true,
-                    dt_criacao: "",
-                    dt_atualizacao: "",
-                }
-                
-                return this.$emit("paisCadastrado")
-                
+                this.fecharModal()
+                this.$emit('paisCadastrado')
+
             } catch (e) {
                 console.log(e)
+
                 alert('Houve um erro! Por favor tente novamente.')
                 
-                return this.fecharModal()
+                this.fecharModal()
             }
-        },
-        // Outros métodos do modal aqui
-    },
+        }
+    }
 }
 </script>

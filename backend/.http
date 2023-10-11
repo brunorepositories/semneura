@@ -16,3 +16,7 @@ content-type: application/json
 GET http://localhost:3333/paises HTTP/1.1
 
 ###
+
+GET http://localhost:3333/pais/10 HTTP/1.1
+
+###

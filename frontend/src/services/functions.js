@@ -9,11 +9,26 @@ export function updateMoneyData (val) {
 	return val
 }
 
-export function cleanJsonData (data) {
-	const cleanData = data.data[0].dados
+export function formatJsonData (response) {
 
-	return cleanData
+	if (Array.isArray(response.data)) {
+		const dados = response.data[0].dados
+		return dados
+
+	} else {
+		const dados = response.data
+		return dados
+	
+	}
+
 }
+
+export function cleanJsonObj (response) {
+	const dados = response.data
+
+	return dados
+}
+
 
 export function updateCPFData (cpf) {
 	cpf = cpf.replace(/\./g, '')
